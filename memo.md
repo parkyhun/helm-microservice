@@ -5,4 +5,28 @@ helm package . -d docs/
 # index.yaml 파일을 docs/ 폴더 안에 자동 생성하기
 helm repo index docs --url https://parkyhun.github.io/helm-microservice/
 
+# add, commit, push  한다 
+git add . -> commit -> push
+
+```
+
+### github pages 동작 하도록 설정한다
+
+```bash
+# 현재 등록된 helm 저장소 목록 조회
+helm repo ls 
+# 방금 만든 helm chart 의 위치를 helm 저장소로 등록하기 ( msa 부분 이름 마음대로 설정 가능 , 등록만 한거 받아온거는 아님)
+helm repo add msa https://parkyhun.github.io/helm-microservice/
+# 저장소에 있는 내용을 모두 받아올수 있도록 동기화
+helm repo update
+# 저장소에 어떤 chart 가 들어있는지 검색
+helm search repo msa 
+msa/msa-platform        0.1.0           1.0.0           index + market + post
+
+# install 해보기
+helm install msa-release msa/msa-platform -n msa --create-namespace
+
+# 삭제하기  helm, namespace 
+ helm uninstall msa-release -n msa
+ k delete ns msa
 ```
